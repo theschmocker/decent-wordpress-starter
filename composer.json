@@ -1,0 +1,22 @@
+{
+  "name": "theschmocker/wordpress-starter",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "theschmocker",
+      "email": "jacobcs1996@gmail.com"
+    }
+  ],
+  "require": {
+    "johnpbloch/wordpress": "^5.4"
+  },
+  "extra": {
+    "wordpress-install-dir": "wp",
+    "installer-paths": {
+      "wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "wp-content/themes/{$name}/": ["type:wordpress-theme"]
+    }
+  }
+}
