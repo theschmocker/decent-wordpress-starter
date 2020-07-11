@@ -125,9 +125,9 @@ class StarterSite extends Timber\Site {
 
   /** This is where you can add your own functions to twig.
    *
-   * @param Twig $twig get extension.
+   * @param Twig\Environment $twig get extension.
    */
-  public function add_to_twig( $twig ) {
+  public function add_to_twig( Twig\Environment $twig ) {
     $twig->addExtension( new Twig\Extension\StringLoaderExtension() );
     $twig->addFilter( new Twig\TwigFilter( 'myfoo', [ $this, 'myfoo' ] ) );
     return $twig;
