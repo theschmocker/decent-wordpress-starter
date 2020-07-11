@@ -63,6 +63,7 @@ class StarterSite extends Timber\Site {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
     add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+    add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
 		parent::__construct();
 	}
 	/** This is where you can register custom post types. */
@@ -143,7 +144,11 @@ class StarterSite extends Timber\Site {
 
 
   public function enqueue_scripts() {
-    wp_enqueue_script( 'index', get_stylesheet_directory_uri() . '/dist/index.js', null, '0' );
+    wp_enqueue_script( 'index', get_file_uri('/dist/index.js'), null, get_file_version_string('/dist/index.js') );
+  }
+
+  public function enqueue_styles() {
+    wp_enqueue_style( 'styles', get_file_uri('/dist/styles.css'), null, get_file_version_string('/dist/styles.css') );
   }
 
 	/** This is where you can add your own functions to twig.
@@ -159,3 +164,15 @@ class StarterSite extends Timber\Site {
 }
 
 new StarterSite();
+
+/**
+ * Helper functions
+ */
+
+function get_file_uri(string $filename) {
+  return get_stylesheet_directory_uri() . $filename;
+}
+
+function get_file_version_string(string $filename) {
+  return filemtime(get_stylesheet_directory() . "/{$filename}");
+}
