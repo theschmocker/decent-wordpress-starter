@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -40,6 +41,13 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: `[name].css`,
+    }),
+    new BrowserSyncPlugin({
+      // browse to http://localhost:3000/ during development,
+      // ./public directory is being served
+      host: 'localhost',
+      port: 3000,
+      proxy: 'http://wordpress-starter.test',
     }),
     // from https://gist.github.com/wpscholar/cba13d48ff11fd2c84e5542e70e9a091
     function (compiler) {
