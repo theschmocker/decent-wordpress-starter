@@ -41,13 +41,13 @@ if ( ! class_exists( 'Timber' ) ) {
 /**
  * Sets the directories (inside your theme) to find .twig files
  */
-Timber::$dirname = array( 'templates', 'views' );
+Timber\Timber::$dirname = array( 'templates', 'views' );
 
 /**
  * By default, Timber does NOT autoescape values. Want to enable Twig's autoescape?
  * No prob! Just set this value to true
  */
-Timber::$autoescape = false;
+Timber\Timber::$autoescape = false;
 
 
 /**
@@ -62,6 +62,7 @@ class StarterSite extends Timber\Site {
 		add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
+    add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		parent::__construct();
 	}
 	/** This is where you can register custom post types. */
@@ -140,18 +141,14 @@ class StarterSite extends Timber\Site {
 		add_theme_support( 'menus' );
 	}
 
-	/** This Would return 'foo bar!'.
-	 *
-	 * @param string $text being 'foo', then returned 'foo bar!'.
-	 */
-	public function myfoo( $text ) {
-		$text .= ' bar!';
-		return $text;
-	}
+
+  public function enqueue_scripts() {
+    wp_enqueue_script( 'index', get_stylesheet_directory_uri() . '/dist/index.js', null, '0' );
+  }
 
 	/** This is where you can add your own functions to twig.
 	 *
-	 * @param string $twig get extension.
+	 * @param Twig $twig get extension.
 	 */
 	public function add_to_twig( $twig ) {
 		$twig->addExtension( new Twig\Extension\StringLoaderExtension() );

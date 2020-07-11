@@ -1,10 +1,10 @@
 module.exports = {
   entry: [
-    './app/main.js'
+    './src/index.js'
   ],
   output: {
     path: __dirname + '/dist',
-    filename: "app.bundle.js"
+    filename: "index.js"
   },
   module: {
     rules: [
