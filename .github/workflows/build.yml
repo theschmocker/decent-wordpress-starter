@@ -28,7 +28,7 @@ jobs:
       working-directory: ./wp-content/themes/starter-theme
       run: |
         npm install
-        npm runn build
+        npm run build
         rm -rf ./node_modules
 
     - name: Archive production artifacts
